@@ -17,13 +17,14 @@ public class StackController : MonoBehaviour
         {
             if (i == 0)
             {
-                lampList[i].transform.position = gameObject.transform.position + Vector3.forward * 2;
+                //lampList[i].transform.position = gameObject.transform.position + Vector3.forward * 2;
+               
                 lampList[i].gameObject.GetComponent<LampController>().lampFollowTarget = gameObject.transform;
                 lampList[i].gameObject.tag = "HasTargetLamp";
             }
             else
             {
-                lampList[i].transform.position = lampList[i-1].gameObject.transform.position + Vector3.forward * 2;
+               // lampList[i].transform.position = lampList[i-1].gameObject.transform.position + Vector3.forward * 2;
                 lampList[i].gameObject.GetComponent<LampController>().lampFollowTarget = lampList[i-1].gameObject.transform;
                 lampList[i].gameObject.tag = "HasTargetLamp";
             }

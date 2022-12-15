@@ -5,17 +5,20 @@ using UnityEngine;
 public class LampController : MonoBehaviour
 {
     public Transform lampFollowTarget;
+
     public GameObject player;
+
     public float slerpSpeed;
+    public float distanceBetweenLamps;
 
     private void FixedUpdate()
     {
         if (lampFollowTarget != null)
         {
             transform.position = new Vector3(
-          Mathf.Lerp(transform.position.x, lampFollowTarget.position.x, Time.deltaTime * 10),
+          Mathf.Lerp(transform.position.x, lampFollowTarget.position.x, Time.deltaTime * slerpSpeed),
           lampFollowTarget.position.y,
-          lampFollowTarget.position.z + 2
+          lampFollowTarget.position.z + distanceBetweenLamps
           );
         }
       
@@ -29,7 +32,7 @@ public class LampController : MonoBehaviour
             collision.gameObject.GetComponent<StackController>().ReorderTheLine(gameObject);
         }
 
-        if (collision.gameObject.tag == "HasTargetLamp")
+        if (collision.gameObject.tag == "HasTargetLamp" && gameObject.tag != "HasTargetLamp")
         {
             player = collision.gameObject.GetComponent<LampController>().player;
             collision.gameObject.GetComponent<LampController>().player.GetComponent<StackController>().ReorderTheLine(gameObject);

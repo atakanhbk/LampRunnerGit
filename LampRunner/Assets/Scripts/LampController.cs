@@ -11,6 +11,8 @@ public class LampController : MonoBehaviour
     public float slerpSpeed;
     public float distanceBetweenLamps;
 
+    public int lineNumber;
+
     private void FixedUpdate()
     {
         if (lampFollowTarget != null)
@@ -37,7 +39,17 @@ public class LampController : MonoBehaviour
             player = collision.gameObject.GetComponent<LampController>().player;
             collision.gameObject.GetComponent<LampController>().player.GetComponent<StackController>().ReorderTheLine(gameObject);
         }
+
+        if (collision.gameObject.tag == "Wall")
+        {
+       
+           player.GetComponent<StackController>().LineBreak(gameObject,lineNumber);
+          //  player.GetComponent<StackController>().ClearMissingObjectsFromList(gameObject);
+
+        }
     }
+
+
 
 
 

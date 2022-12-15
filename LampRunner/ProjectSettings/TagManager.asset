@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Lamp
   - HasTargetLamp
+  - Wall
   layers:
   - Default
   - TransparentFX

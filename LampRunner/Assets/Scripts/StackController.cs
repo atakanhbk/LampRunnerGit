@@ -37,13 +37,7 @@ public class StackController : MonoBehaviour
         StartCoroutine(WaveEffect());
     }
 
-    public void ClearMissingObjectsFromList(GameObject killLamp)
-    {
-
   
-        canClearList = true;
-     
-    }
 
     public void LineBreak(GameObject killLamp,int destroyLineNumber)
     {
@@ -62,6 +56,9 @@ public class StackController : MonoBehaviour
         canClearList = true;
       
 
+    }
+
+    public void ThrowLampsRandomPosition() { 
     }
 
     IEnumerator WaveEffect()

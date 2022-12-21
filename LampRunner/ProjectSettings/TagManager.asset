@@ -7,6 +7,14 @@ TagManager:
   - Lamp
   - HasTargetLamp
   - Wall
+  - Multiplier
+  - Obstacle
+  - Gate
+  - Atm
+  - Collectable
+  - FinishLine
+  - AtmLine
+  - Hammer
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class LampController : MonoBehaviour
     public Transform lampFollowTarget;
 
     public GameObject player;
+    public GameObject brokeLamp;
 
     public float slerpSpeed;
     public float distanceBetweenLamps;
@@ -44,8 +45,8 @@ public class LampController : MonoBehaviour
         {
        
            player.GetComponent<StackController>().LineBreak(gameObject,lineNumber);
-          //  player.GetComponent<StackController>().ClearMissingObjectsFromList(gameObject);
-
+          var spawnBreakableFlashlight = Instantiate(brokeLamp, transform.position, Quaternion.identity);
+            Destroy(spawnBreakableFlashlight, 2);
         }
     }
 

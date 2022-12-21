@@ -12,10 +12,23 @@ public class StackController : MonoBehaviour
 
     Vector3 lampOriginialSize;
 
+    bool justTakeSizeOneTime = true;
+
 
     public void ReorderTheLine(GameObject lamp)
     {
+       
+
         lampList.Add(lamp);
+
+        
+
+        if (justTakeSizeOneTime)
+        {
+            lampOriginialSize = lamp.transform.localScale;
+            justTakeSizeOneTime = false;
+        }
+        
         for (int i = 0; i < lampList.Count; i++)
         {
             if (i == 0)
@@ -29,11 +42,14 @@ public class StackController : MonoBehaviour
             else
             {
                // lampList[i].transform.position = lampList[i-1].gameObject.transform.position + Vector3.forward * 2;
+
                 lampList[i].gameObject.GetComponent<LampController>().lampFollowTarget = lampList[i-1].gameObject.transform;
                 lampList[i].gameObject.GetComponent<LampController>().lineNumber = i;
                 lampList[i].gameObject.tag = "HasTargetLamp";
             }
+            lampList[0].gameObject.GetComponent<LampController>().lampFollowTarget = gameObject.transform;
         }
+
         StartCoroutine(WaveEffect());
     }
 
@@ -45,20 +61,25 @@ public class StackController : MonoBehaviour
 
         for (int i = destroyLineNumber; i < lampList.Count; i++)
         {
-            lampList[i].transform.DOMove(lampList[i].transform.position + Vector3.forward * 2 * i, 0.5f);
+          //  lampList[i].transform.DOMove(lampList[i].transform.position + Vector3.forward * 2 * i, 0.5f);
             lampList[i].gameObject.GetComponent<LampController>().lampFollowTarget = null;
             lampList[i].gameObject.tag = "Lamp";
+            ThrowLampsRandomPosition(lampList[i]);
 
         }
 
         Destroy(killLamp);
-
+  
         canClearList = true;
       
 
     }
 
-    public void ThrowLampsRandomPosition() { 
+    public void ThrowLampsRandomPosition(GameObject randomLamp) {
+
+        Vector3 randomPosition = new Vector3(Random.Range(-4,4),randomLamp.transform.position.y, Random.Range(randomLamp.transform.position.z + 20, randomLamp.transform.position.z + 30));
+        randomLamp.transform.DOJump(randomPosition,3f,2, 1f);
+        Debug.Log(randomPosition);
     }
 
     IEnumerator WaveEffect()
@@ -70,7 +91,7 @@ public class StackController : MonoBehaviour
             var lastCup = lampList[lampList.Count - i];
             lastCup.transform.DOScale(new Vector3(lastCup.transform.localScale.x + waveLengthSize, lastCup.transform.localScale.y + waveLengthSize, lastCup.transform.localScale.z + waveLengthSize), 0.125f);
             yield return new WaitForSeconds(0.1f);
-            lastCup.transform.DOScale(new Vector3(1,1,1), 0.125f);
+            lastCup.transform.DOScale(lampOriginialSize, 0.125f);
 
           
         }
